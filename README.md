@@ -5,7 +5,7 @@
 ## 安装
 
 ```bash
-git clone https://github.com/USER/cxs.git
+git clone https://github.com/x2x5/cxs.git
 cd cxs
 bash install.sh
 ```
@@ -14,7 +14,7 @@ bash install.sh
 
 ```bash
 mkdir -p ~/.local/bin
-curl -fsSL https://raw.githubusercontent.com/USER/cxs/main/cxs -o ~/.local/bin/cxs
+curl -fsSL https://raw.githubusercontent.com/x2x5/cxs/main/cxs -o ~/.local/bin/cxs
 chmod +x ~/.local/bin/cxs
 echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
 ```
