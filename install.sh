@@ -5,6 +5,15 @@ INSTALL_DIR="${CXS_INSTALL_DIR:-$HOME/.local/bin}"
 ACCOUNTS_DIR="${CX_ACCOUNTS_DIR:-$HOME/codex-accounts}"
 REPO="https://raw.githubusercontent.com/x2x5/cxs/refs/heads/master"
 
+# 自动检测本地代理
+for port in 7890 1080 8080 10809; do
+    if ss -tlnp 2>/dev/null | grep -q ":$port "; then
+        export http_proxy="http://127.0.0.1:$port"
+        export https_proxy="http://127.0.0.1:$port"
+        break
+    fi
+done
+
 # 卸载
 if [[ "${1:-}" == "--uninstall" ]]; then
     echo "卸载 cxs..."
