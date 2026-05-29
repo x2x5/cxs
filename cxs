@@ -388,6 +388,24 @@ cmd_diff() {
     diff --color=auto "$CODEX_DIR/auth.json" "$ACCOUNTS_DIR/$name/auth.json" 2>/dev/null || echo "  不同或缺失"
 }
 
+cmd_uninstall() {
+    echo -e "${YELLOW}即将删除:${NC}"
+    echo "  $INSTALL_DIR/cxs"
+    echo "  $ACCOUNTS_DIR"
+    echo ""
+    echo -n "确认卸载? [y/N]: "
+    read -r confirm
+    if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
+        rm -f "$INSTALL_DIR/cxs"
+        rm -rf "$ACCOUNTS_DIR"
+        rm -f "$CODEX_DIR/.current_account"
+        rm -rf "$CODEX_DIR/.quota_cache"
+        echo -e "${GREEN}已卸载${NC}"
+    else
+        echo "取消"
+    fi
+}
+
 cmd_help() {
     echo "cxs - Codex 多账号切换器"
     echo ""
@@ -400,6 +418,7 @@ cmd_help() {
     echo "  cxs quota [名称]      额度"
     echo "  cxs auto              自动选额度最多的"
     echo "  cxs edit <名称>       编辑"
+  cxs uninstall         卸载
 }
 
 case "${1:-help}" in
@@ -412,6 +431,7 @@ case "${1:-help}" in
     add|new) cmd_add "${2:-}" ;;
     edit) cmd_edit "${2:-}" ;;
     diff) cmd_diff "${2:-}" ;;
+    uninstall|rm) cmd_uninstall ;;
     help|-h|--help) cmd_help ;;
     *) echo -e "${RED}未知命令: $1${NC}"; cmd_help ;;
 esac
